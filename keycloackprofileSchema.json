@@ -7,11 +7,11 @@
     },
     "ClientId": {
       "title": "Name of profile",
-      "description": "The same name presents in settings.json of spa"
+      "description": "The same name presents in settings.json of spa",
       "type": "string"
     },
     "Name": {
-      "title": "Profile description"
+      "title": "Profile description",
       "description": "The description name of the profile",
       "type": "string"
     },
@@ -38,14 +38,14 @@
     },
     "ClientAudience": {
       "title": "The name of client audience",
-      "description" : "The same present in program.cs at AddJwtBearer options"
+      "description": "The same present in program.cs at AddJwtBearer options",
       "type": "string"
     },
     "RedirectUriArray": {
       "title": "The list of allowed redirect uri",
       "type": "array",
       "items": {
-        "type" : "string"
+        "type": "string"
       }
     },
     "ModelFolder": {
@@ -322,7 +322,6 @@
             "title": "Owner schema of table",
             "type": "string"
           },
-
           "TargetSchema": {
             "title": "Target Owner schema of table",
             "type": "string"
@@ -428,7 +427,6 @@
             "title": "Owner schema of table",
             "type": "string"
           },
-
           "TargetSchema": {
             "title": "Target Owner schema of table",
             "type": "string"
@@ -491,7 +489,6 @@
             "title": "Owner schema of table",
             "type": "string"
           },
-
           "TargetSchema": {
             "title": "Target Owner schema of table",
             "type": "string"
