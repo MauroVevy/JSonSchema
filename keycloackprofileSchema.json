@@ -1,0 +1,520 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "ConnectionString": {
+      "title": "Connectionstring to the original database",
+      "type": "string"
+    },
+    "RootNamespace": {
+      "title": "The root namespace: Usually the project namespace",
+      "type": "string"
+    },
+    "SourceModelNamespace": {
+      "title": "The namespace of source models",
+      "type": "string"
+    },
+    "TargetModelNamespace": {
+      "title": "The namespace of target models",
+      "type": "string"
+    },
+    "SourceContextNamespace": {
+      "title": "Source Context name",
+      "description": "Usually FluentisContext",
+      "type": "string"
+    },
+    "TargetContextNamespace": {
+      "title": "Target Context name",
+      "description": "Usually LocalContext",
+      "type": "string"
+    },
+    "SourceContextName": {
+      "title": "The name of source Context",
+      "type": "string"
+    },
+    "TargetContextName": {
+      "title": "The name of target Context",
+      "type": "string"
+    },
+    "ContextFolder": {
+      "title": "The folder contains the contexts",
+      "type": "string"
+    },
+    "ModelFolder": {
+      "title": "The name of the folder that will contain the generated models",
+      "type": "string"
+    },
+    "Generate": {
+      "type": "string",
+      "default": "all",
+      "title": "Type of files to generate",
+      "enum": [
+        "all",
+        "dbcontext",
+        "entities"
+      ],
+      "examples": [
+        "all"
+      ],
+      "required": [
+        "ConnectionString",
+        "SourceModelNamespace",
+        "TargetModelNamespace",
+        "SourceContextName",
+        "TargetContextName"
+      ]
+    },
+    "Tables": {
+      "title": "List of tables to import in the new database",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Columns": {
+            "title": "List of columns to import in the new database",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "SourceColumnName": {
+                  "title": "Column name on source Database",
+                  "type": "string"
+                },
+                "TargetColumnName": {
+                  "title": "Column name on target Database",
+                  "type": "string"
+                },
+                "SourcePropertyName": {
+                  "title": "Propertyname on model of source Database",
+                  "type": "string"
+                },
+                "TargetPropertyName": {
+                  "title": "Propertyname on model of target Database",
+                  "type": "string"
+                },
+                "ClrType": {
+                  "title": "Clr Type of entity",
+                  "type": "string"
+                },
+                "ColumnType": {
+                  "title": "Sql Column Type",
+                  "description": "example decimal(28,15)",
+                  "type": "string"
+                },
+                "HasMaxLength": {
+                  "title": "String or char Sql column length",
+                  "type": "number"
+                },
+                "IsFixedLength": {
+                  "title": "FixedLength of string or char column",
+                  "type": "boolean",
+                  "default": false
+                },
+                "IsNullable": {
+                  "title": "Column is nullable",
+                  "type": "boolean",
+                  "default": false
+                },
+                "HasValueGeneratedNever": {
+                  "title": "Column is not an identity",
+                  "type": "boolean",
+                  "default": false,
+                  "description": "To avoid that EFCore add identity by default to field called id"
+                },
+                "IsPrimaryKey": {
+                  "title": "Column is Primary Key",
+                  "type": "boolean",
+                  "default": false,
+                  "description": "The column is a primary key"
+                },
+                "Disabled": {
+                  "title": "Not considerated from elaboration",
+                  "type": "boolean",
+                  "default": true,
+                  "description": "if disabled will be removed from new model"
+                }
+              },
+              "required": [
+                "SourceColumnName",
+                "TargetColumnName",
+                "SourcePropertyName",
+                "TargetPropertyName",
+                "ClrType",
+                "ColumnType"
+              ]
+            }
+          },
+          "Relationships": {
+            "title": "RelationsShips between two tables",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Navigation": {
+                  "title": "New navigation field description",
+                  "description": "The new field to add to partial class",
+                  "type": "object",
+                  "properties": {
+                    "IsCollection": {
+                      "title": "If collection create an ICollection entity",
+                      "type": "boolean"
+                    },
+                    "Class": {
+                      "title": "class name",
+                      "type": "string"
+                    },
+                    "Name": {
+                      "title": "Field name",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "Class",
+                    "Name"
+                  ]
+                },
+                "HasOne": {
+                  "title": "Has one slave relationship",
+                  "type": "string"
+                },
+                "HasMany": {
+                  "title": "Has many slave relationship",
+                  "type": "string"
+                },
+                "WithOne": {
+                  "title": "Has one main relationship",
+                  "type": "string"
+                },
+                "HasForeignKey": {
+                  "title": "Column of foreign key",
+                  "type": "string"
+                },
+                "HasPrincipalKey": {
+                  "title": "Column of main key",
+                  "type": "string"
+                },
+                "IsRequired": {
+                  "title": "The record must be required",
+                  "type": "boolean"
+                },
+                "OnDelete": {
+                  "title": "The record must be required",
+                  "type": "string",
+                  "enum": [
+                    "NoAction",
+                    "Cascade",
+                    "SetNull",
+                    "SetDefault"
+                  ]
+                }
+              },
+              "required": []
+            }
+          },
+          "Schema": {
+            "title": "Owner schema of table",
+            "type": "string"
+          },
+          "TargetSchema": {
+            "title": "Target Owner schema of table",
+            "type": "string"
+          },
+          "Name": {
+            "title": "Original table name",
+            "type": "string"
+          },
+          "NewName": {
+            "title": "New table name and entity name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "Columns",
+          "Schema",
+          "Name",
+          "NewName"
+        ]
+      }
+    },
+    "Functions": {
+      "title": "List of functions to import in the new database",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Columns": {
+            "title": "List of columns to import in the new database",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "SourceColumnName": {
+                  "title": "Column name on source Database",
+                  "type": "string"
+                },
+                "TargetColumnName": {
+                  "title": "Column name on target Database",
+                  "type": "string"
+                },
+                "SourcePropertyName": {
+                  "title": "Propertyname on model of source Database",
+                  "type": "string"
+                },
+                "TargetPropertyName": {
+                  "title": "Propertyname on model of target Database",
+                  "type": "string"
+                },
+                "ClrType": {
+                  "title": "Clr Type of entity",
+                  "type": "string"
+                },
+                "ColumnType": {
+                  "title": "Sql Column Type",
+                  "description": "example decimal(28,15)",
+                  "type": "string"
+                },
+                "HasMaxLength": {
+                  "title": "String or char Sql column length",
+                  "type": "number"
+                },
+                "IsFixedLength": {
+                  "title": "FixedLength of string or char column",
+                  "type": "boolean",
+                  "default": false
+                },
+                "IsNullable": {
+                  "title": "Column is nullable",
+                  "type": "boolean",
+                  "default": false
+                },
+                "HasValueGeneratedNever": {
+                  "title": "Column is not an identity",
+                  "type": "boolean",
+                  "default": false,
+                  "description": "To avoid that EFCore add identity by default to field called id"
+                },
+                "IsPrimaryKey": {
+                  "title": "Column is Primary Key",
+                  "type": "boolean",
+                  "default": false,
+                  "description": "The column is a primary key"
+                }
+              },
+              "required": [
+                "SourceColumnName",
+                "TargetColumnName",
+                "SourcePropertyName",
+                "TargetPropertyName",
+                "ClrType",
+                "ColumnType"
+              ]
+            }
+          },
+          "Schema": {
+            "title": "Owner schema of table",
+            "type": "string"
+          },
+
+          "TargetSchema": {
+            "title": "Target Owner schema of table",
+            "type": "string"
+          },
+          "Name": {
+            "title": "Original table name",
+            "type": "string"
+          },
+          "NewName": {
+            "title": "New table name and entity name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "Columns",
+          "Schema",
+          "Name",
+          "NewName"
+        ]
+      }
+    },
+    "Views": {
+      "title": "List of views to import in the new database",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Columns": {
+            "title": "List of columns to import in the new database",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "SourceColumnName": {
+                  "title": "Column name on source Database",
+                  "type": "string"
+                },
+                "TargetColumnName": {
+                  "title": "Column name on target Database",
+                  "type": "string"
+                },
+                "SourcePropertyName": {
+                  "title": "Propertyname on model of source Database",
+                  "type": "string"
+                },
+                "TargetPropertyName": {
+                  "title": "Propertyname on model of target Database",
+                  "type": "string"
+                },
+                "ClrType": {
+                  "title": "Clr Type of entity",
+                  "type": "string"
+                },
+                "ColumnType": {
+                  "title": "Sql Column Type",
+                  "description": "example decimal(28,15)",
+                  "type": "string"
+                },
+                "HasMaxLength": {
+                  "title": "String or char Sql column length",
+                  "type": "number"
+                },
+                "IsFixedLength": {
+                  "title": "FixedLength of string or char column",
+                  "type": "boolean",
+                  "default": false
+                },
+                "IsNullable": {
+                  "title": "Column is nullable",
+                  "type": "boolean",
+                  "default": false
+                },
+                "HasValueGeneratedNever": {
+                  "title": "Column is not an identity",
+                  "type": "boolean",
+                  "default": false,
+                  "description": "To avoid that EFCore add identity by default to field called id"
+                },
+                "IsPrimaryKey": {
+                  "title": "Column is Primary Key",
+                  "type": "boolean",
+                  "default": false,
+                  "description": "The column is a primary key"
+                },
+                "Disabled": {
+                  "title": "Not considerated from elaboration",
+                  "type": "boolean",
+                  "default": true,
+                  "description": "if disabled will be removed from new model"
+                }
+              },
+              "required": [
+                "SourceColumnName",
+                "TargetColumnName",
+                "SourcePropertyName",
+                "TargetPropertyName",
+                "ClrType",
+                "ColumnType"
+              ]
+            }
+          },
+          "Schema": {
+            "title": "Owner schema of table",
+            "type": "string"
+          },
+
+          "TargetSchema": {
+            "title": "Target Owner schema of table",
+            "type": "string"
+          },
+          "Name": {
+            "title": "Original table name",
+            "type": "string"
+          },
+          "NewName": {
+            "title": "New table name and entity name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "Columns",
+          "Schema",
+          "Name",
+          "NewName"
+        ]
+      }
+    },
+    "StoreProcedures": {
+      "title": "List of Store Procedures to import in the new database",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Columns": {
+            "title": "List of columns to import in the new database",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "SourceColumnName": {
+                  "title": "Column name on source Database",
+                  "type": "string"
+                },
+                "TargetColumnName": {
+                  "title": "Column name on target Database",
+                  "type": "string"
+                },
+                "SourcePropertyName": {
+                  "title": "Propertyname on model of source Database",
+                  "type": "string"
+                },
+                "TargetPropertyName": {
+                  "title": "Propertyname on model of target Database",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "SourceColumnName",
+                "TargetColumnName",
+                "SourcePropertyName",
+                "TargetPropertyName"
+              ]
+            }
+          },
+          "Schema": {
+            "title": "Owner schema of table",
+            "type": "string"
+          },
+
+          "TargetSchema": {
+            "title": "Target Owner schema of table",
+            "type": "string"
+          },
+          "Name": {
+            "title": "Original table name",
+            "type": "string"
+          },
+          "NewName": {
+            "title": "New table name and entity name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "Columns",
+          "Schema",
+          "Name",
+          "NewName"
+        ]
+      }
+    }
+  },
+  "required": [
+    "$schema",
+    "name",
+    "connectionString",
+    "context",
+    "models",
+    "tables"
+  ]
+}
