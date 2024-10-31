@@ -129,7 +129,6 @@
     "TargetContextNamespace",
     "SourceContextName",
     "jsonType.label",
-    "multivalued",
     "claim.name"
   ]
 }
