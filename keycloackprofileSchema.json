@@ -43,14 +43,74 @@
     },
     "RedirectUriArray": {
       "title": "The list of allowed redirect uri",
+      "description": "The uri must be end with /*",
       "type": "array",
       "items": {
         "type": "string"
       }
     },
-    "ModelFolder": {
-      "title": "The name of the folder that will contain the generated models",
-      "type": "string"
+    "WebOriginsArray": {
+      "title": "The list of allowed web origin uri",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "PostLogoutRedirectUris": {
+      "title": "The name of the allowed postlogun uri",
+      "description": "The uri must be end with /*",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ProtocolMappers": {
+      "title": "The list of protocol mappers",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "title": "The name of protocol mapper",
+            "type": "string"
+          },
+          "Protocol": {
+            "title": "The protocol of protocol mapper",
+            "type": "string"
+          },
+          "ProtocolMapper": {
+            "title": "The protocol mapper",
+            "type": "string"
+          },
+          "Config": {
+            "title": "The config of protocol mapper",
+            "type": "object",
+            "properties": {
+              "claim.name": {
+                "title": "The claim name",
+                "type": "string"
+              },
+              "jsonType.label": {
+                "title": "The variable type",
+                "type": "string",
+                "enum": [
+                  "String",
+                  "long",
+                  "int",
+                  "boolean",
+                  "double",
+                  "JSON"
+                ]
+              },
+              "multivalued": {
+                "title": "The claim is multivalued",
+                "description": "The claim is multivalued (optional)",
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "required": [
@@ -59,6 +119,17 @@
     "Name",
     "RootUrl",
     "AdminUrl",
-    "BaseUrl"
+    "BaseUrl",
+    "ClientAudience",
+    "RedirectUriArray",
+    "WebOriginsArray",
+    "PostLogoutRedirectUris",
+    "Config",
+    "ProtocolMappers",
+    "TargetContextNamespace",
+    "SourceContextName",
+    "jsonType.label",
+    "multivalued",
+    "claim.name"
   ]
 }
