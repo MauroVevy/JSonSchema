@@ -5,25 +5,26 @@
     "$schema": {
       "type": "string"
     },
-    "ConnectionString": {
-      "title": "Connectionstring to the original database",
+    "ClientId": {
+      "title": "Name of profile",
+      "description": "The same name presents in settings.json of spa"
       "type": "string"
     },
-    "RootNamespace": {
-      "title": "The root namespace: Usually the project namespace",
+    "Name": {
+      "title": "Profile description"
+      "description": "The description name of the profile",
       "type": "string"
     },
-    "SourceModelNamespace": {
-      "title": "The namespace of source models",
+    "RootUrl": {
+      "title": "The url of website",
       "type": "string"
     },
-    "TargetModelNamespace": {
-      "title": "The namespace of target models",
+    "AdminUrl": {
+      "title": "The url of website admin",
       "type": "string"
     },
-    "SourceContextNamespace": {
-      "title": "Source Context name",
-      "description": "Usually FluentisContext",
+    "BaseUrl": {
+      "title": "The base url of website",
       "type": "string"
     },
     "TargetContextNamespace": {
@@ -35,13 +36,17 @@
       "title": "The name of source Context",
       "type": "string"
     },
-    "TargetContextName": {
-      "title": "The name of target Context",
+    "ClientAudience": {
+      "title": "The name of client audience",
+      "description" : "The same present in program.cs at AddJwtBearer options"
       "type": "string"
     },
-    "ContextFolder": {
-      "title": "The folder contains the contexts",
-      "type": "string"
+    "RedirectUriArray": {
+      "title": "The list of allowed redirect uri",
+      "type": "array",
+      "items": {
+        "type" : "string"
+      }
     },
     "ModelFolder": {
       "title": "The name of the folder that will contain the generated models",
