@@ -11,10 +11,15 @@
       "type": "string"
     },
     "Name": {
-      "title": "Profile description",
-      "description": "The description name of the profile",
+      "title": "Profile name",
+      "description": "The name of the profile",
       "type": "string"
     },
+    "Description": {
+      "title": "Profile description",
+      "description": "The description of the profile",
+      "type": "string"
+    },    
     "RootUrl": {
       "title": "The url of website",
       "type": "string"
