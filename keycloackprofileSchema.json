@@ -19,7 +19,7 @@
       "title": "Profile description",
       "description": "The description of the profile",
       "type": "string"
-    },    
+    },
     "RootUrl": {
       "title": "The url of website",
       "type": "string"
@@ -116,6 +116,28 @@
           }
         }
       }
+    },
+    "AcrLoaMap": {
+      "title": "Acr Loa Map dictionary",
+      "description": "Loa Map",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "pwd": {
+            "type": "string"
+          },
+          "mfa": {
+            "type": "string"
+          },
+          "awk": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "DefaultAcr": {
+      "type": "string"
     }
   },
   "required": [
