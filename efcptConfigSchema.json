@@ -67,6 +67,11 @@
         "TargetContextName"
       ]
     },
+    "Collation": {
+      "title": "Database collation",
+      "description": "Collation to use for the generated database objects.",
+      "type": "string"
+    },
     "Tables": {
       "title": "List of tables to import in the new database",
       "type": "array",
@@ -229,6 +234,18 @@
           "NewName": {
             "title": "New table name and entity name",
             "type": "string"
+          },
+          "HasTargetOnly": {
+            "title": "If true the table is not present in source database",
+            "type": "boolean",
+            "default": false,
+            "description": "This is used to create a new table only in target database"
+          },
+          "HasSourceOnly": {
+            "title": "If true the table is not present in target database",
+            "type": "boolean",
+            "default": false,
+            "description": "This is used to avoid creating a table for in the target database"
           }
         },
         "required": [
@@ -507,14 +524,63 @@
           "NewName"
         ]
       }
+    },
+    "Enums": {
+      "title": "List of enums used in the configuration",
+      "description": "Array of enum definitions used in the configuration.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "description": "Enum name."
+          },
+          "IsFlags": {
+            "type": "boolean",
+            "description": "True if the enum is a flags enum."
+          },
+          "BaseType": {
+            "type": "string",
+            "description": "Underlying type of the enum (e.g. int, byte)."
+          },
+          "Values": {
+            "type": "array",
+            "description": "Enum values.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Name": {
+                  "type": "string",
+                  "description": "Enum value name."
+                },
+                "Value": {
+                  "type": [ "integer", "string" ],
+                  "description": "Enum value."
+                }
+              },
+              "required": [ "Name", "Value" ]
+            }
+          }
+        },
+        "required": [ "Name", "Values" ]
+      }
     }
   },
   "required": [
     "$schema",
-    "name",
-    "connectionString",
-    "context",
-    "models",
-    "tables"
+    "Name",
+    "ConnectionString",
+    "Tables",
+    "RootNamespace",
+    "SourceModelNamespace",
+    "TargetModelNamespace",
+    "SourceContextNamespace",
+    "TargetContextNamespace",
+    "SourceContextName",
+    "TargetContextName",
+    "ContextFolder",
+    "ModelFolder",
+    "Generate"
   ]
 }
