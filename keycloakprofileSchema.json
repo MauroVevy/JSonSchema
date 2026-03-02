@@ -46,6 +46,11 @@
       "description": "The same present in program.cs at AddJwtBearer options",
       "type": "string"
     },
+    "OptionalClientScopes": {
+      "title": "Optional client scopes",
+      "description": "Optional scopes for the client",
+      "type": "string"
+    },
     "RedirectUriArray": {
       "title": "The list of allowed redirect uri",
       "description": "The uri must be end with /*",
@@ -116,46 +121,20 @@
           }
         }
       }
-    },
-    "AcrLoaMap": {
-      "title": "Acr Loa Map dictionary",
-      "description": "Loa Map",
-      "type": "object",
-      "items": {
-        "type": "object",
-        "properties": {
-          "pwd": {
-            "type": "string"
-          },
-          "mfa": {
-            "type": "string"
-          },
-          "awk": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "DefaultAcr": {
-      "type": "string"
     }
   },
   "required": [
     "$schema",
-    "ClientId",
+    "ClientId", 
     "Name",
     "RootUrl",
-    "AdminUrl",
+    "AdminUrl", 
     "BaseUrl",
     "ClientAudience",
+    "OptionalClientScopes",
     "RedirectUriArray",
-    "WebOriginsArray",
+    "WebOriginsArray", 
     "PostLogoutRedirectUris",
-    "Config",
-    "ProtocolMappers",
-    "TargetContextNamespace",
-    "SourceContextName",
-    "jsonType.label",
-    "claim.name"
+    "ProtocolMappers"
   ]
 }
