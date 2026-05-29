@@ -102,7 +102,7 @@
         "null"
       ]
     },
-    "DefaultClientScopes": {
+    "DefaultClientScope": {
       "title": "Default client scopes",
       "description": "Additional default client scopes to append to the generated profile.",
       "type": "array",
@@ -138,6 +138,10 @@
         "ProtocolMapper": {
           "title": "Protocol mapper",
           "type": "string"
+        },
+        "consentRequired": {
+          "title": "Consent required",
+          "type": "boolean"
         },
         "Config": {
           "$ref": "#/definitions/SourceConfig"
@@ -202,6 +206,13 @@
             "null"
           ]
         },
+        "claim.value": {
+          "title": "Claim value",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "jsonType.label": {
           "title": "JSON type label",
           "type": [
@@ -221,6 +232,13 @@
         "multivalued": {
           "title": "Multivalued",
           "description": "Whether the generated claim is multivalued.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "access.tokenRequest.claim": {
+          "title": "Include in access token request",
           "type": [
             "string",
             "null"
