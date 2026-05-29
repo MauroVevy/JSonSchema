@@ -1,140 +1,246 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Keycloak source profile",
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "$schema": {
-      "type": "string"
+      "type": "string",
+      "description": "Schema reference for the source profile document."
     },
     "ClientId": {
-      "title": "Name of profile",
-      "description": "The same name presents in settings.json of spa",
-      "type": "string"
-    },
-    "Name": {
-      "title": "Profile name",
-      "description": "The name of the profile",
+      "title": "Client ID",
+      "description": "The client identifier used as the base for generated profiles.",
       "type": "string"
     },
     "Description": {
       "title": "Profile description",
-      "description": "The description of the profile",
+      "description": "The description of the profile.",
+      "type": "string"
+    },
+    "Name": {
+      "title": "Profile name",
+      "description": "The base name of the profile.",
       "type": "string"
     },
     "RootUrl": {
-      "title": "The url of website",
+      "title": "Root URL",
+      "description": "The root URL of the application.",
       "type": "string"
     },
     "AdminUrl": {
-      "title": "The url of website admin",
+      "title": "Admin URL",
+      "description": "The admin URL of the application.",
       "type": "string"
     },
     "BaseUrl": {
-      "title": "The base url of website",
-      "type": "string"
-    },
-    "TargetContextNamespace": {
-      "title": "Target Context name",
-      "description": "Usually LocalContext",
-      "type": "string"
-    },
-    "SourceContextName": {
-      "title": "The name of source Context",
+      "title": "Base URL",
+      "description": "The base URL of the application.",
       "type": "string"
     },
     "ClientAudience": {
-      "title": "The name of client audience",
-      "description": "The same present in program.cs at AddJwtBearer options",
+      "title": "Client audience",
+      "description": "The audience value used by the generated audience protocol mapper.",
       "type": "string"
     },
     "OptionalClientScopes": {
       "title": "Optional client scopes",
-      "description": "Optional scopes for the client",
-      "type": "string"
+      "description": "Optional scopes for the client.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
     },
     "RedirectUriArray": {
-      "title": "The list of allowed redirect uri",
-      "description": "The uri must be end with /*",
+      "title": "Redirect URIs",
+      "description": "The allowed redirect URIs. Values are expected to end with /*.",
       "type": "array",
       "items": {
         "type": "string"
       }
     },
     "WebOriginsArray": {
-      "title": "The list of allowed web origin uri",
+      "title": "Web origins",
+      "description": "The allowed web origins. Values must not contain * and must not end with /.",
       "type": "array",
       "items": {
         "type": "string"
       }
     },
     "PostLogoutRedirectUris": {
-      "title": "The name of the allowed postlogun uri",
-      "description": "The uri must be end with /*",
+      "title": "Post logout redirect URIs",
+      "description": "The allowed post logout redirect URIs. Values are expected to end with /*.",
       "type": "array",
       "items": {
         "type": "string"
       }
     },
     "ProtocolMappers": {
-      "title": "The list of protocol mappers",
+      "title": "Protocol mappers",
+      "description": "Optional custom protocol mappers added to frontend or mobile profiles.",
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "$ref": "#/definitions/SourceProtocolMapper"
+      }
+    },
+    "AcrLoaMap": {
+      "title": "ACR LOA map",
+      "description": "Optional map of ACR values to LOA levels.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "DefaultAcr": {
+      "title": "Default ACR",
+      "description": "Optional default ACR value.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "DefaultClientScope": {
+      "title": "Default client scopes",
+      "description": "Additional default client scopes to append to the generated profile.",
       "type": "array",
       "items": {
-        "type": "object",
-        "properties": {
-          "Name": {
-            "title": "The name of protocol mapper",
-            "type": "string"
-          },
-          "Protocol": {
-            "title": "The protocol of protocol mapper",
-            "type": "string"
-          },
-          "ProtocolMapper": {
-            "title": "The protocol mapper",
-            "type": "string"
-          },
-          "Config": {
-            "title": "The config of protocol mapper",
-            "type": "object",
-            "properties": {
-              "claim.name": {
-                "title": "The claim name",
-                "type": "string"
-              },
-              "jsonType.label": {
-                "title": "The variable type",
-                "type": "string",
-                "enum": [
-                  "String",
-                  "long",
-                  "int",
-                  "boolean",
-                  "double",
-                  "JSON"
-                ]
-              },
-              "multivalued": {
-                "title": "The claim is multivalued",
-                "description": "The claim is multivalued (optional)",
-                "type": "string"
-              }
-            }
-          }
-        }
+        "type": "string"
       }
     }
   },
   "required": [
-    "$schema",
-    "ClientId", 
+    "ClientId",
     "Name",
     "RootUrl",
-    "AdminUrl", 
+    "AdminUrl",
     "BaseUrl",
     "ClientAudience",
-    "OptionalClientScopes",
     "RedirectUriArray",
-    "WebOriginsArray", 
-    "PostLogoutRedirectUris",
-    "ProtocolMappers"
-  ]
+    "WebOriginsArray",
+    "PostLogoutRedirectUris"
+  ],
+  "definitions": {
+    "SourceProtocolMapper": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "Name": {
+          "title": "Protocol mapper name",
+          "type": "string"
+        },
+        "Protocol": {
+          "title": "Protocol",
+          "type": "string"
+        },
+        "ProtocolMapper": {
+          "title": "Protocol mapper",
+          "type": "string"
+        },
+        "Config": {
+          "$ref": "#/definitions/SourceConfig"
+        }
+      },
+      "required": [
+        "Name",
+        "Protocol",
+        "ProtocolMapper"
+      ]
+    },
+    "SourceConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "included.client.audience": {
+          "title": "Included client audience",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "introspection.token.claim": {
+          "title": "Include in introspection token",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "id.token.claim": {
+          "title": "Include in ID token",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "access.token.claim": {
+          "title": "Include in access token",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "userinfo.token.claim": {
+          "title": "Include in user info token",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "lightweight.claim": {
+          "title": "Lightweight claim",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "claim.name": {
+          "title": "Claim name",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "jsonType.label": {
+          "title": "JSON type label",
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "String",
+            "long",
+            "int",
+            "boolean",
+            "double",
+            "JSON",
+            null
+          ]
+        },
+        "multivalued": {
+          "title": "Multivalued",
+          "description": "Whether the generated claim is multivalued.",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "acr.loa.map": {
+          "title": "ACR LOA map",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "default.acr.values": {
+          "title": "Default ACR values",
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    }
+  }
 }
