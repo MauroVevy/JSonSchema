@@ -102,7 +102,7 @@
         "null"
       ]
     },
-    "DefaultClientScope": {
+    "DefaultClientScopes": {
       "title": "Default client scopes",
       "description": "Additional default client scopes to append to the generated profile.",
       "type": "array",
