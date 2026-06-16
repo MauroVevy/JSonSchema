@@ -1,0 +1,382 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://vevy.com/schemas/siteconfiguration.json",
+    "title": "SiteConfiguration",
+    "description": "Schema for site configuration JSON, based on ISite interface from SiteProperties.tsx",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Site name"
+        },
+        "colors": {
+            "type": "object",
+            "description": "Color properties for the site (ColorProps)",
+            "properties": {
+                "backgroundDark": {
+                    "type": "string",
+                    "description": "Dark background color (hex, rgb, etc.)"
+                },
+                "backgroundLight": {
+                    "type": "string",
+                    "description": "Light background color (hex, rgb, etc.)"
+                },
+                "backgroundColor": {
+                    "type": "string",
+                    "description": "Main background color (hex, rgb, etc.)"
+                },
+                "iconSettingColor": {
+                    "type": "string",
+                    "description": "Icon setting color (hex, rgb, etc.)"
+                },
+                "linkColor": {
+                    "type": "string",
+                    "description": "Link color (hex, rgb, etc.)"
+                }
+            },
+            "additionalProperties": false
+        },
+        "setting": {
+            "type": "object",
+            "description": "Site settings (SettingsProps)",
+            "properties": {
+                "style": {
+                    "type": "object",
+                    "description": "MUI SxProps style object (CSS properties or breakpoint keys)",
+                    "additionalProperties": {
+                        "description": "CSS property or MUI breakpoint object"
+                    }
+                },
+                "showLanguage": {
+                    "type": "boolean",
+                    "description": "Whether to show language selector"
+                }
+            },
+            "required": [
+                "style",
+                "showLanguage"
+            ],
+            "additionalProperties": false
+        },
+        "container": {
+            "type": "object",
+            "description": "Container/background properties (BackgroundProps)",
+            "properties": {
+                "backgroundColor": {
+                    "type": "string",
+                    "description": "Container background color"
+                },
+                "backgroundImage": {
+                    "type": "string",
+                    "description": "Container background image URL or path"
+                },
+                "style": {
+                    "type": "object",
+                    "description": "MUI SxProps style object",
+                    "additionalProperties": true
+                }
+            },
+            "required": [
+                "style"
+            ],
+            "additionalProperties": false
+        },
+        "banner": {
+            "type": "object",
+            "description": "Banner properties (BannerProps)",
+            "properties": {
+                "image": {
+                    "type": "object",
+                    "description": "Main banner image",
+                    "properties": {
+                        "backgroundImage": {
+                            "type": "string",
+                            "description": "Image URL or path"
+                        },
+                        "tag": {
+                            "type": "string",
+                            "description": "Identifier tag for the image"
+                        },
+                        "alt": {
+                            "type": "string",
+                            "description": "Alt text for the image"
+                        },
+                        "imageStyle": {
+                            "type": "object",
+                            "description": "Style applied to the image element",
+                            "additionalProperties": true
+                        },
+                        "style": {
+                            "type": "object",
+                            "description": "Style applied to the container",
+                            "additionalProperties": true
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "logo": {
+                    "type": "object",
+                    "description": "Banner logo",
+                    "properties": {
+                        "image": {
+                            "type": "string",
+                            "description": "Logo image URL or path"
+                        },
+                        "tag": {
+                            "type": "string",
+                            "description": "Identifier tag for the logo"
+                        },
+                        "alt": {
+                            "type": "string",
+                            "description": "Alt text for the logo"
+                        },
+                        "href": {
+                            "type": "string",
+                            "description": "Link URL when logo is clicked"
+                        },
+                        "imageStyle": {
+                            "type": "object",
+                            "description": "Style applied to the logo image element",
+                            "additionalProperties": true
+                        },
+                        "style": {
+                            "type": "object",
+                            "description": "Style applied to the logo container",
+                            "additionalProperties": true
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "text": {
+                    "type": "array",
+                    "description": "Array of banner text elements (BannerTextProps[])",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "text": {
+                                "type": "string",
+                                "description": "Text content"
+                            },
+                            "style": {
+                                "type": "object",
+                                "description": "MUI SxProps style object",
+                                "additionalProperties": true
+                            },
+                            "variant": {
+                                "type": "string",
+                                "description": "MUI Typography variant",
+                                "enum": [
+                                    "h1",
+                                    "h2",
+                                    "h3",
+                                    "h4",
+                                    "h5",
+                                    "h6",
+                                    "subtitle1",
+                                    "subtitle2",
+                                    "body1",
+                                    "body2",
+                                    "caption",
+                                    "button",
+                                    "overline"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "text"
+                        ],
+                        "additionalProperties": false
+                    }
+                },
+                "backgroundColor": {
+                    "type": "string",
+                    "description": "Banner background color"
+                },
+                "style": {
+                    "type": "object",
+                    "description": "MUI SxProps style object for the banner container",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": false
+        },
+        "menu": {
+            "type": "object",
+            "description": "Main menu configuration (MainMenuProps)",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "Menu orientation",
+                    "enum": [
+                        "left",
+                        "top",
+                        "right"
+                    ]
+                },
+                "items": {
+                    "type": "array",
+                    "description": "Menu items (LinkItem[])",
+                    "items": {
+                        "$ref": "#/definitions/LinkItem"
+                    }
+                },
+                "style": {
+                    "type": "object",
+                    "description": "Menu style configuration (MainMenuStyleProps)",
+                    "properties": {
+                        "variant": {
+                            "type": "string",
+                            "description": "MUI Toolbar variant",
+                            "enum": [
+                                "dense",
+                                "regular"
+                            ]
+                        },
+                        "toolbarStyle": {
+                            "$ref": "#/definitions/ToolbarStyleType",
+                            "description": "Style for the toolbar-level menu"
+                        },
+                        "menuStyle": {
+                            "$ref": "#/definitions/ToolbarStyleType",
+                            "description": "Style for submenu/dropdown items"
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "required": [
+                "type",
+                "items"
+            ],
+            "additionalProperties": false
+        },
+        "body": {
+            "type": "object",
+            "description": "Body section properties (BodyProps - currently empty)",
+            "properties": {},
+            "additionalProperties": false
+        },
+        "footer": {
+            "type": "object",
+            "description": "Footer configuration (FooterProps)",
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "description": "Footer size variant",
+                    "enum": [
+                        "tiny",
+                        "small",
+                        "medium",
+                        "large"
+                    ]
+                },
+                "lefItems": {
+                    "type": "array",
+                    "description": "Left-side footer items (LinkItem[])",
+                    "items": {
+                        "$ref": "#/definitions/LinkItem"
+                    }
+                },
+                "rightItems": {
+                    "type": "array",
+                    "description": "Right-side footer items (LinkItem[])",
+                    "items": {
+                        "$ref": "#/definitions/LinkItem"
+                    }
+                },
+                "style": {
+                    "type": "object",
+                    "description": "Footer style configuration (FooterStyleProps)",
+                    "properties": {
+                        "toolbarStyle": {
+                            "$ref": "#/definitions/ToolbarStyleType",
+                            "description": "Style for the footer toolbar"
+                        },
+                        "buttonStyle": {
+                            "$ref": "#/definitions/ToolbarStyleType",
+                            "description": "Style for footer buttons"
+                        },
+                        "menuStyle": {
+                            "type": "object",
+                            "description": "Style for footer text/typography",
+                            "additionalProperties": true
+                        }
+                    },
+                    "additionalProperties": false
+                }
+            },
+            "required": [
+                "type",
+                "lefItems",
+                "rightItems"
+            ],
+            "additionalProperties": false
+        }
+    },
+    "required": [
+        "name",
+        "menu"
+    ],
+    "additionalProperties": false,
+    "definitions": {
+        "LinkItem": {
+            "type": "object",
+            "description": "A menu/footer link item, can contain nested subItems (recursive)",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "Display title of the link"
+                },
+                "path": {
+                    "type": "string",
+                    "description": "Route path"
+                },
+                "id": {
+                    "type": "string",
+                    "description": "Optional identifier"
+                },
+                "visibility": {
+                    "type": "string",
+                    "description": "Visibility restriction: 'edit' for editors, 'admin' for administrators, etc."
+                },
+                "subItems": {
+                    "type": "array",
+                    "description": "Nested sub-menu items",
+                    "items": {
+                        "$ref": "#/definitions/LinkItem"
+                    }
+                },
+                "buttonProps": {
+                    "type": "object",
+                    "description": "MUI Button sx props",
+                    "additionalProperties": true
+                },
+                "showFooter": {
+                    "type": "boolean",
+                    "description": "Whether to show this link in the footer"
+                }
+            },
+            "required": [
+                "title"
+            ],
+            "additionalProperties": false
+        },
+        "ToolbarStyleType": {
+            "type": "object",
+            "description": "Style configuration for a toolbar, with nested toolbarProps and buttonProps (extends MUI SxProps)",
+            "properties": {
+                "toolbarProps": {
+                    "type": "object",
+                    "description": "MUI sx props applied to the Toolbar component",
+                    "additionalProperties": true
+                },
+                "buttonProps": {
+                    "type": "object",
+                    "description": "MUI sx props applied to Button components",
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true
+        }
+    }
+}
