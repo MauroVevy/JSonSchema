@@ -4,6 +4,10 @@
     "description": "Schema for site configuration JSON, based on ISite interface from SiteProperties.tsx",
     "type": "object",
     "properties": {
+        "$schema": {
+          "type": "string",
+          "description": "Schema reference for the source profile document."
+        },
         "name": {
             "type": "string",
             "description": "Site name"
